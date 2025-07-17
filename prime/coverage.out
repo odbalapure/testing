@@ -1,0 +1,21 @@
+mode: set
+prime/main.go:11.13,33.2 6 0
+prime/main.go:35.43,38.6 2 0
+prime/main.go:38.6,41.11 2 0
+prime/main.go:41.11,44.4 2 0
+prime/main.go:46.3,47.11 2 0
+prime/main.go:51.14,56.2 4 0
+prime/main.go:58.57,63.44 2 0
+prime/main.go:63.44,65.3 1 0
+prime/main.go:68.2,69.16 2 0
+prime/main.go:69.16,71.3 1 0
+prime/main.go:73.2,74.19 2 0
+prime/main.go:77.15,79.2 1 0
+prime/main.go:81.36,82.22 1 1
+prime/main.go:82.22,84.3 1 1
+prime/main.go:86.2,86.11 1 1
+prime/main.go:86.11,88.3 1 1
+prime/main.go:90.2,90.28 1 1
+prime/main.go:90.28,91.15 1 1
+prime/main.go:91.15,93.4 1 1
+prime/main.go:96.2,96.53 1 1
