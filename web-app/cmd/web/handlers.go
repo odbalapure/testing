@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"path"
 	"text/template"
@@ -39,4 +40,20 @@ func (app *application) render(w http.ResponseWriter, r *http.Request, t string,
 	}
 
 	return nil
+}
+
+func (app *application) Login(w http.ResponseWriter, r *http.Request) {
+	err := r.ParseForm()
+	if err != nil {
+		log.Println(err)
+		http.Error(w, "bad request", http.StatusBadRequest)
+		return
+	}
+
+	email := r.Form.Get("email")
+	password := r.Form.Get("password")
+
+	fmt.Println(email, password)
+
+	fmt.Fprint(w, email)
 }

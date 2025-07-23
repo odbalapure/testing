@@ -22,6 +22,7 @@ func (app *application) routes() http.Handler {
 	// })
 
 	mux.Get("/", app.Home)
+	mux.Post("/login", app.Login)
 
 	// server static assets
 	// `FileServer` returns a `Handler`
