@@ -1,8 +1,10 @@
 package main
 
 import (
+	"context"
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"testing"
 )
 
@@ -56,5 +58,17 @@ func TestAddIpContext(t *testing.T) {
 		}
 
 		handlerToTest.ServeHTTP(httptest.NewRecorder(), req)
+	}
+}
+
+func TestAppIpFromContext(t *testing.T) {
+	var app application
+	expectedIp := "0.0.0.0"
+
+	ctx := context.WithValue(context.Background(), contextUserKey, expectedIp)
+	ip := app.ipFromContext(ctx)
+
+	if !strings.EqualFold(expectedIp, ip) {
+		t.Errorf("expected %s got %s", expectedIp, ip)
 	}
 }

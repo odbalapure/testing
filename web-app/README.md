@@ -200,3 +200,25 @@ func (app *application) render(w http.ResponseWriter, r *http.Request, t string,
 	return nil
 }
 ```
+
+### Writing a test for a simple function
+
+```go
+// Fetching the IP address (user_ip) from the context object 
+func (app *application) ipFromContext(ctx context.Context) string {
+	return ctx.Value(contextUserKey).(string)
+}
+
+// Simple test case
+func TestAppIpFromContext(t *testing.T) {
+	var app application
+	expectedIp := "0.0.0.0"
+
+	ctx := context.WithValue(context.Background(), contextUserKey, expectedIp)
+	ip := app.ipFromContext(ctx)
+
+	if !strings.EqualFold(expectedIp, ip) {
+		t.Errorf("expected %s got %s", expectedIp, ip)
+	}
+}
+```
