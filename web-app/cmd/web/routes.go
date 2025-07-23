@@ -10,8 +10,11 @@ import (
 func (app *application) routes() http.Handler {
 	mux := chi.NewRouter()
 
-	// middleware
+	// apply logic before hitting any route
+	// Eg: when you get a request and something breaks rather than killing the entire application
+	// recover from that and send an error message to the end user
 	mux.Use(middleware.Recoverer)
+	mux.Use(app.addIPToContext)
 
 	// register routes
 	// mux.Get("/", func(w http.ResponseWriter, r *http.Request) {
