@@ -6,13 +6,23 @@ import (
 	"net/http"
 	"path"
 	"text/template"
+	"time"
 )
 
 var pathToTempaltes = "./templates/"
 
 func (app *application) Home(w http.ResponseWriter, r *http.Request) {
+	var td = make(map[string]any)
+
 	// fmt.Fprint(w, "Home Page")
-	err := app.render(w, r, "home.page.gohtml", &TemplateData{})
+	if app.Session.Exists(r.Context(), "test") {
+		msg := app.Session.Get(r.Context(), "test")
+		td["test"] = msg
+	} else {
+		app.Session.Put(r.Context(), "test", "Hit this page "+time.Now().UTC().String())
+	}
+
+	err := app.render(w, r, "home.page.gohtml", &TemplateData{Data: td})
 	fmt.Print(err)
 }
 
