@@ -1,6 +1,8 @@
 package main
 
 import (
+	"database/sql"
+	"flag"
 	"log"
 	"net/http"
 
@@ -9,11 +11,27 @@ import (
 
 type application struct {
 	Session *scs.SessionManager
+	DSN     string
+	DB      *sql.DB
 }
 
 func main() {
 	// setup an application config
 	app := application{}
+
+	// when someone accesses `app.DSN` they get this though out their project
+	flag.StringVar(&app.DSN, "dsn", "host=localhost port=5432 user=postgres password=postgres dbname=users sslmode=disable timezone=UTC connect_timeout=5", "Postgres connection")
+	flag.Parse()
+
+	conn, err := app.connectToDB()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// When the main function exits, close the DB connection
+	defer conn.Close()
+
+	app.DB = conn
 
 	// get a session manager
 	// NOTE: setup the session before hitting the routes
@@ -26,7 +44,7 @@ func main() {
 	log.Println("Strating serve on port 8080")
 
 	// start the server
-	err := http.ListenAndServe(":8080", mux)
+	err = http.ListenAndServe(":8080", mux)
 	if err != nil {
 		log.Fatal(err)
 	}
