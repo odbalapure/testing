@@ -24,6 +24,7 @@ func (app *application) routes() http.Handler {
 
 	mux.Get("/", app.Home)
 	mux.Post("/login", app.Login)
+	mux.Get("/user/profile", app.Profile)
 
 	// server static assets
 	// `FileServer` returns a `Handler`

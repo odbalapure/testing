@@ -1,10 +1,10 @@
 package main
 
 import (
-	"database/sql"
 	"flag"
 	"log"
 	"net/http"
+	"webapp/pkg/db"
 
 	"github.com/alexedwards/scs/v2"
 )
@@ -12,7 +12,7 @@ import (
 type application struct {
 	Session *scs.SessionManager
 	DSN     string
-	DB      *sql.DB
+	DB      db.PostgresConn
 }
 
 func main() {
@@ -31,7 +31,8 @@ func main() {
 	// When the main function exits, close the DB connection
 	defer conn.Close()
 
-	app.DB = conn
+	// app.DB = conn
+	app.DB = db.PostgresConn{DB: conn}
 
 	// get a session manager
 	// NOTE: setup the session before hitting the routes
