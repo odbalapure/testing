@@ -42,6 +42,3 @@ if err != nil {
 return nil
 // ...
 ```
-
-## Getting started with JWT auth
-
